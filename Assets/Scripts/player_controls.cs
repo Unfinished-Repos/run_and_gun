@@ -8,7 +8,7 @@ public class player_controls : MonoBehaviour {
     public float sprintBoost = 1.5f;
     public int jumpsLeft = 0;
     public Sprite[] moves;
-    public GameObject gun;
+    public GameObject gun; // TODO: Right & Left side implementation
 
     void Start() {
 
@@ -50,8 +50,11 @@ public class player_controls : MonoBehaviour {
         GetComponent<Rigidbody2D>().AddForce(new Vector2(0.0f, 2.0f) * 4.0f, ForceMode2D.Impulse);
         jumpsLeft--;
       }
-      if (transform.position.y < -10) {
+      if (transform.position.y < -10)
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
+      if (Input.GetMouseButtonDown(0)) {
+        gun.GetComponent<pistol>().fire();
       }
     }
 
