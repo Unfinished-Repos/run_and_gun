@@ -51,7 +51,7 @@ public class player_controls : MonoBehaviour {
         jumpsLeft--;
       }
       if (transform.position.y < -10)
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Death();
 
       if (Input.GetMouseButtonDown(0)) {
         gun.GetComponent<pistol>().fire();
@@ -60,5 +60,9 @@ public class player_controls : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D other) {
       jumpsLeft = 1;
+    }
+
+    public void Death () {
+      SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
