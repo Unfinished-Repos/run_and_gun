@@ -19,11 +19,10 @@ public class player_controls : MonoBehaviour {
       if (weaponR != null) {
         weaponR.transform.position = new Vector2(transform.position.x + 0.4f, transform.position.y - 0.15f);
         follow_mouse(weaponR);
-        if (weaponR.GetComponent<pistol>() != null) {
+        if (weaponR.GetComponent<pistol>() != null)
           gun_controls(weaponR);
-        }else {
-          beer_controls(weaponR);
-        }
+        if (Input.GetMouseButtonDown(1))
+          weaponR.GetComponent<throwable>().thrown();
       }else {
         if (Input.GetKeyDown("space") && pickupable_obj.Count > 0) {
           weaponR = pickupable_obj[Random.Range(0, pickupable_obj.Count-1)];
@@ -83,17 +82,8 @@ public class player_controls : MonoBehaviour {
     }
 
     void gun_controls(GameObject gun) {
-      // Mouse follow
-
       // Control
       if (Input.GetMouseButtonDown(0))
         gun.GetComponent<pistol>().fire();
-      if (Input.GetMouseButtonDown(1))
-        gun.GetComponent<pistol>().thrown();
-    }
-
-    void beer_controls(GameObject beer) {
-      if (Input.GetMouseButtonDown(1))
-        beer.GetComponent<beer>().thrown();
     }
 }
