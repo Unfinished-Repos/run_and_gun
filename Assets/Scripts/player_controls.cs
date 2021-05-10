@@ -4,15 +4,13 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class player_controls : MonoBehaviour {
-    public float speed = 1f;
+    public float speed = 5f;
     public float sprintBoost = 1.5f;
     public int jumpsLeft = 0;
     public Sprite[] moves;
     public GameObject weaponR; // TODO: Right & Left side implementation
     public List<GameObject> pickupable_obj = new List<GameObject>();
-    void Start() {
-
-    }
+    public bool onRight, onLeft;
 
     void Update() {
       // Gun controls
@@ -31,39 +29,64 @@ public class player_controls : MonoBehaviour {
           weaponR.transform.parent = this.transform;
         }
       }
+
+      // kill condition
+      if (transform.position.y < -10)
+        Death();
+    }
+
+    void FixedUpdate() {
       // Player movement
       GetComponent<SpriteRenderer>().sprite = moves[0]; // default
       GetComponent<SpriteRenderer>().flipX = false;
+      Vector2 movement = Vector2.zero; //Vector2.zero;
+      //bool grounded = onGround();
       if (Input.GetKey(KeyCode.D)) {
+        // check if something to right (&& vel.x == 0?)
         if (!Input.GetKey(KeyCode.LeftShift)) {
-          transform.Translate(Vector2.right * (float)Time.deltaTime * speed, Space.Self);
+          movement.x += (Vector2.right * speed).x;
+          //Debug.Log(GetComponent<Rigidbody2D>().velocity.x);
+          //transform.Translate(Vector2.right * (float)Time.deltaTime * speed, Space.Self);
           GetComponent<SpriteRenderer>().sprite = moves[1];
         }else { // sprinting
-          transform.Translate(Vector2.right * (float)Time.deltaTime * speed * sprintBoost, Space.Self);
+          movement.x += (Vector2.right * speed * sprintBoost).x;
           GetComponent<SpriteRenderer>().sprite = moves[2];
         }
       }
       if (Input.GetKey(KeyCode.A)) {
         GetComponent<SpriteRenderer>().flipX = true;
         if (!Input.GetKey(KeyCode.LeftShift)) {
-          transform.Translate(Vector2.left * (float)Time.deltaTime * speed, Space.Self);
+          movement.x += (Vector2.left * speed).x;
+          //transform.Translate(Vector2.left * (float)Time.deltaTime * speed, Space.Self);
           GetComponent<SpriteRenderer>().sprite = moves[1];
         }else { // sprinting
-          transform.Translate(Vector2.left * (float)Time.deltaTime * speed * sprintBoost, Space.Self);
+          movement.x += (Vector2.left * speed * sprintBoost).x;
           GetComponent<SpriteRenderer>().sprite = moves[2];
         }
       }
+
+      bool grounded = onGround();
+      if (movement.x > 0 && onRight && !grounded) {
+        movement.x = 0;
+      }
+      if (movement.x < 0 && onLeft && !grounded) {
+        movement.x = 0;
+      }
+
       if (Input.GetKey(KeyCode.W) && jumpsLeft > 0) {
         GetComponent<Rigidbody2D>().AddForce(new Vector2(0.0f, 2.0f) * 4.0f, ForceMode2D.Impulse);
         jumpsLeft--;
+        //movement.y = (transform.up*Time.deltaTime*speed*25f).y;
       }
-      if (transform.position.y < -10)
-        Death();
+      movement.y = GetComponent<Rigidbody2D>().velocity.y;
+      GetComponent<Rigidbody2D>().velocity = movement;
+      //movement = movement + (Vector2)(transform.position);
+      //GetComponent<Rigidbody2D>().MovePosition(movement);
     }
 
     void OnCollisionEnter2D(Collision2D other) {
-      jumpsLeft = 1;
-      //Debug.Log(other.gameObject.tag);
+      if (onGround())
+        jumpsLeft = 1;
     }
 
     public void Death () {
@@ -82,8 +105,18 @@ public class player_controls : MonoBehaviour {
     }
 
     void gun_controls(GameObject gun) {
-      // Control
       if (Input.GetMouseButtonDown(0))
         gun.GetComponent<pistol>().fire();
+    }
+
+    bool onGround() { // TODO: Optimize
+      float currentx = transform.position.x - transform.localScale.x / 2f;
+      RaycastHit2D hit;
+      do {
+        Vector2 under = new Vector2(currentx, transform.position.y - transform.localScale.y / 2f - 0.01f);
+        hit = Physics2D.Raycast(under, -Vector2.up, .01f);
+        currentx += transform.localScale.x / 10f; // 10 raycasts
+      }while (currentx <= transform.position.x + transform.localScale.x / 2f && hit.collider == null);
+      return hit.collider != null;
     }
 }
