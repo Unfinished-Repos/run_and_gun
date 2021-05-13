@@ -153,12 +153,9 @@ GameObject:
   - component: {fileID: 6660133580069284069}
   - component: {fileID: 6359637022710297945}
   - component: {fileID: 9025236790263352987}
-  - component: {fileID: -7592170944919140647}
   - component: {fileID: -6336770376519511456}
-  - component: {fileID: -3392748356946244102}
-  - component: {fileID: -671868230035509087}
   m_Layer: 0
-  m_Name: The Dude
+  m_Name: The Dude Singleplayer
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -298,18 +295,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   killed_effect: {fileID: 7701441286726547595, guid: ca993e9cd3a989444971d4901690cb3c, type: 3}
---- !u!114 &-7592170944919140647
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9025236790263352977}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73e1bc7b30aabbc4498cffadde0a45db, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &-6336770376519511456
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -317,7 +302,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9025236790263352977}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 97b54e00afbb146498ddb6f085cd6a08, type: 3}
   m_Name: 
@@ -333,41 +318,3 @@ MonoBehaviour:
   pickupable_obj: []
   onRight: 0
   onLeft: 0
---- !u!114 &-3392748356946244102
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9025236790263352977}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneId: 0
-  serverOnly: 0
-  visible: 0
-  m_AssetId: 
-  hasSpawned: 0
---- !u!114 &-671868230035509087
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9025236790263352977}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.01
-  clientAuthority: 1
-  localPositionSensitivity: 0.01
-  localRotationSensitivity: 0.01
-  localScaleSensitivity: 0.01
-  compressRotation: 0
-  interpolateScale: 1
-  syncScale: 1
