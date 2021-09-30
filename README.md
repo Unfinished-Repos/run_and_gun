@@ -1,6 +1,28 @@
 # run_and_gun
 - https://www.notion.so/Run-Gun-Game-9079ef767c1b4ace80fef416ed54d71a
-- Put in notion stuff
+## Singleplayer
+
+- Randomly generated levels
+    - Castlevania
+    - Enter the Gungeon
+    - Reincarnation/Generational vibe
+- platformer
+    - sliding
+    - double jump
+    - ground pound?
+    - wall jumps
+- guns (duh)
+- Speedrun leaderboard
+- Achievements
+
+## Multiplayer
+
+- Gamemodes
+    - TDM
+    - Battle Royale
+    - 1 v 1
+    - gun game
+    - infected
 
 ## Useful Links
 ### Multiplayer
